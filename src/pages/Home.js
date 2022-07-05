@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import Grid from '../components/Grid';
+import {  useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
+  let navigate = useNavigate();
+  const [artist, setArtist] = useState('');
+
+  const handleSubmit=()=>{
+    
+    navigate(`/music/${artist}`);
+  }
   
   return (
     <>
@@ -27,30 +34,14 @@ const Home = () => {
           >
             Featuring a mix of popular and classic rock, this album is the perfect gift for any occasion. All the songs are hand-picked by the music professional known as  <span className='relative mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block text-lg font-medium'>Joshua Clifford</span>
           </div>
-          <div className="flex flex-col items-center mt-12 text-center">
-            <span className="relative inline-flex w-full md:w-auto">
-              <a
-                href="#_"
-                className="inline-flex items-center justify-center w-full px-8 py-4 text-base font-bold leading-6 text-white bg-indigo-600 border border-transparent rounded-full md:w-auto hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-              >
-                Listen Now
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
+          <form className="mt-8 flex flex-col space-y-3 sm:-mx-2 sm:flex-row sm:justify-center sm:space-y-0">
+        <input type="text" className="rounded-md border border-indigo-500  px-4 py-2 text-indigo-700 placeholder-indigo-400 backdrop-blur-sm focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 sm:mx-2" placeholder="Search Artist" onChange={(e)=>{
+         setArtist(e.target.value);
+        }}/>
 
-      {/* body */}
-      <div className="lg:container lg:mx-auto mt-9">
-        <div className="">
-          <h1 className='title p-2'>Spiking Artists</h1>
-          {/* <div className="w-full my-4">
-				    <div className="h-1 mx-auto bg-indigo-400 w-64 my-0 py-0 rounded-t"></div>
-			    </div> */}
-            <p className='text-center text-gray-400 text-sm p-2'>These artists are trending globally right now.</p>
-            <p className='text-center text-gray-400 text-sm p-2'> one to explore the artist and their similar artists</p>
+        <button  className="transform rounded-md bg-blue-700 px-8 py-2 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-200 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none sm:mx-2" type='submit' onClick={handleSubmit }>Search</button>
+      </form>
         </div>
-        <Grid/>
       </div>
 
 

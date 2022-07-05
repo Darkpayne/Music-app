@@ -15,7 +15,7 @@ import SinglePage from './pages/SinglePage';
 function App() {
 
   return (
-    <div className="App">
+    <div className="App overflow-auto">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={ <Home/>} />

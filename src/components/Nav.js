@@ -18,7 +18,7 @@ const Nav = () => {
             </div>
         </div>
         <div className="navbar-center">
-            <a className="text-2xl font-medium normal-case ">Music App</a>
+            <Link to="/"><a className="text-4xl font-bold normal-case ">Music App</a></Link>
         </div>
         <div className="navbar-end">
             <Link to="/login" className="btn btn-ghost hidden md:flex mx-4">
