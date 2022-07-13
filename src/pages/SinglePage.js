@@ -1,28 +1,31 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Controls from '../components/Controls';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
+import FetchError from './FetchError';
 
-
-const SinglePage = () => {
+const SinglePage = ({logedIn,afterLogout}) => {
 
   const [music, setMusic] = useState([]);
   const [artistInfo, setArtistInfo] = useState({});
   const [currentSong, setCurrentSong] = useState({});
   const [indexValue, setIndexValue] = useState()
-  const [dataFetched, setDataFetched] = useState(false)
   const [active, setActive] = useState(false)
+  
+
+  const [artistFetch, setaAtistFetch] = useState(false);
+  const [dataFetched, setDataFetched] = useState(false);
+
 
   const {artist} = useParams();
-  // const navigate = useNavigate();
   const options = {
     method: 'GET',
     headers: {'X-RapidAPI-Key': '6271353133msh9b39ef383f0d04ep1e6e5ejsn554197c5fc37','X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'}
   };
 
   // controllers
-  const [isPlaying, setisPlaying] = useState(false)
+  const [isPlaying, setisPlaying] = useState(true)
 
   // set Playing State
   const togglePlaying = ()=>{
@@ -42,7 +45,7 @@ const SinglePage = () => {
         setDataFetched(true)
         setMusic(response.data)
       }else{
-        console.log('there is an error');
+        console.log('there is a song error');
       }
     })
     .catch(err => console.error(err));
@@ -50,13 +53,16 @@ const SinglePage = () => {
   function getArtist(){
     fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${artist}`, options)
     .then(response => response.json())
-    .then(response => setArtistInfo(response))
+    .then(response => {
+      if(response){
+        setaAtistFetch(true);
+        setArtistInfo(response);
+      }else{
+        console.log('there is an artist error');
+      }
+    })
     .catch(err => console.error(err));
   }
-
-  
-
-
   useEffect(() => {
     getMusic()
     getArtist()
@@ -67,13 +73,18 @@ const SinglePage = () => {
     setIndexValue(index);
     setCurrentSong(music[index])
     setActive(true);
-
+    toggleAudio()
+    togglePlaying()
     }
 
 
   return (
+    <>
+    { artistFetch && dataFetched
+    ?
     <div>
-        <Nav/>
+        <Nav logedIn={logedIn} afterLogout={afterLogout}/>
+
         <section className="bg-white dark:bg-gray-900">
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div className="mr-auto place-self-center lg:col-span-7">
@@ -94,6 +105,7 @@ const SinglePage = () => {
             </div>  
         </div>
         </section>
+
         <div className="lg:container lg:mx-auto p-4">
           <div className="grid grid-cols-3 gap-10">
             <div className="lg:col-span-2 col-span-3">
@@ -101,22 +113,27 @@ const SinglePage = () => {
             music.map((song,index)=>{
               const {title} = song;
               return (
-              <div key={index} className={`cursor-pointer flex gap-10 items-center my-5 shadow-lg p-3 ${indexValue === index?'bg-gray-200':''}`} onClick={()=>handleSelect(index)}>
+              <div key={index} className={`cursor-pointer flex gap-10 items-center my-5 shadow-lg p-3 ${indexValue === index?'bg-gray-200':''}`} 
+              onClick={()=>{handleSelect(index)}}>
 
-                <div className="flex items-center justify-between relative ">
+                <div  className="flex items-center justify-between relative ">
                   <img className='w-16 rounded-full opacity-75' src={song.album.cover} alt="" />
+                  {indexValue === index 
+                  &&
                   <div className="absolute text-white text-center flex items-center justify-center right-5 text-3xl z-10">
 
-                  <span onClick={(index)=>{
-                        toggleAudio()
-                        togglePlaying(index)
-                    }}
+                  <span 
                     className='cursor-pointer'> 
-                    
-                   <ion-icon name={isPlaying ?"pause":"play"}></ion-icon>
+                    {isPlaying 
+                    ?
+                    <ion-icon name="play"></ion-icon>
+                    :
+                    <ion-icon name="pause"></ion-icon>
+                    }
                     </span>
 
-                  </div>                  
+                  </div>  
+                  }
                 </div>
 
                 <div className="grow flex justify-between items-center">
@@ -148,9 +165,12 @@ const SinglePage = () => {
         </div>
 
         {active &&  <Controls indexValue={indexValue} currentSong={currentSong} setCurrentSong={setCurrentSong} music={music} setIndexValue={setIndexValue} handleSelect={handleSelect} setActive={setActive} isPlaying={isPlaying} setisPlaying={setisPlaying} togglePlaying={togglePlaying} audio={audio} toggleAudio={toggleAudio} dataFetched={dataFetched}/>}
-       
         <Footer/>
     </div>
+    :
+    <FetchError/>
+    }
+    </>
   )
 }
 

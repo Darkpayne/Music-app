@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = ({afterSignup}) => {
+	const navigate = useNavigate()
 
 	const [username, setUsername] = useState('');
 	const [password1, setPassword1] = useState('');
@@ -31,6 +32,7 @@ const Signup = () => {
 				setUsername('');
 				setPassword1('');
 				setPassword2('');
+				navigate('/login');
 			}else{
 				setisError(true);
 				setErrMessage(username + " already exist");

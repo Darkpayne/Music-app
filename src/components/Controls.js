@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useEffect} from 'react'
 
 const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,setActive,isPlaying,setisPlaying,togglePlaying, audio,toggleAudio }) => {
     
@@ -46,8 +46,11 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
         }
     }
 
-    console.log(indexValue);
-    console.log(music.length -1);
+    const shuffleSong = () =>{
+        const newSong = Math.floor(Math.random() * (music.length - 1 - 2 + 1) ) + 2;
+        setIndexValue(newSong)
+        setCurrentSong(music[newSong]);
+    }
 
     useEffect(() => {
        setisPlaying(false)
@@ -63,7 +66,8 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
         <audio ref={audio}
            onEnded={handleEnd}
            typeof="audio/mpeg" 
-           preload='false'       
+           preload='false'     
+           autoPlay  
            src={currentSong.preview}
         />
             <div className="">
@@ -76,7 +80,7 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
                 </div>
 
                 {/* controls  */}
-                <div className="text-3xl mx-9">
+                <div className="text-3xl mx-3 md:mx-9">
                     <span onClick={previousSong} className='cursor-pointer mx-3'> 
                     <ion-icon name="play-skip-back"></ion-icon>
                     </span>
@@ -86,11 +90,17 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
                         togglePlaying()
                     }}
                     className='cursor-pointer mx-3'> 
-                    <ion-icon name={isPlaying?"pause":"play"}></ion-icon>
+                    <ion-icon name={isPlaying?"play":"pause"}></ion-icon>
                     </span>
                     
                     <span onClick={nextSong} className='cursor-pointer mx-3'> 
                     <ion-icon name="play-skip-forward"></ion-icon>
+                    </span>
+                </div>
+
+                <div className="text-3xl mx-3 md:mx-9">
+                <span onClick={shuffleSong} className='cursor-pointer mx-3'> 
+                <ion-icon name="shuffle-outline"></ion-icon>
                     </span>
                 </div>
             </div>

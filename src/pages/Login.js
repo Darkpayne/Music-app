@@ -1,7 +1,46 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
-const Login = () => {
+const Login = ({afterLogin}) => {
+
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+  const [passType1, setPassType1] = useState(true);
+
+  const [isError, setisError] = useState(false)
+	const [errMessage, setErrMessage] = useState('')
+
+  var auth = JSON.parse(localStorage.getItem('auth'));
+
+	const handleLogin =(e)=>{
+		e.preventDefault();
+		if(auth===null){
+			alert('no user found')
+		}
+	
+
+			const same = auth.filter(d=> d.username == username)
+			if(same.length !== 0){
+       if (same[0].password===password){
+        localStorage.setItem('userlogedin', username)
+         setUsername('');
+         setPassword('');
+         afterLogin(username)
+         navigate('/');
+       }else{
+        setisError(true);
+				setErrMessage("wrong password");
+       }
+			}else{
+				setisError(true);
+				setErrMessage(username + " don't exist");
+			}
+		}
+	
+
+
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center bg-gray-100"
@@ -27,8 +66,15 @@ const Login = () => {
         <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
           Enter your credentials to access your account
         </div>
-
-        <div className="mt-10">
+        {isError &&
+	  	<div  className="alert p-2 alert-error shadow mt-3">
+		<div onClick={()=> setisError(false)} className='cursor-pointer'>
+			<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+			<span>Error! {errMessage}</span>
+			</div>
+		</div>
+		}
+        <div className="mt-3">
           <form action="#">
             <div className="flex flex-col mb-5">
               <label
@@ -50,13 +96,15 @@ const Login = () => {
                     text-gray-400
                   "
                 >
-                  <ion-icon name="mail"></ion-icon>
+                  <ion-icon name="person"></ion-icon>
                 </div>
 
                 <input
                   id="username"
                   type="text"
                   name="username"
+                  value={username}
+				          onChange={(e)=> setUsername(e.target.value)}
                   className="
                     text-sm
                     placeholder-gray-500
@@ -72,6 +120,7 @@ const Login = () => {
                 />
               </div>
             </div>
+
             <div className="flex flex-col mb-6">
               <label
                 for="password"
@@ -109,15 +158,17 @@ const Login = () => {
                     text-gray-400
                   "
                 >
-                  <span>
-                  <ion-icon name="eye-off"></ion-icon>
+                  <span onClick={()=>setPassType1(!passType1)} className="cursor-pointer">
+                  <ion-icon name={passType1 ? 'eye-off': 'eye'}></ion-icon>
                   </span>
                 </div>
 
                 <input
                   id="password"
-                  type="password"
+                  type={passType1 ? 'password' : 'text'}
                   name="password"
+                  value={password}
+				          onChange={(e)=> setPassword(e.target.value)}
                   className="
                     text-sm
                     placeholder-gray-500
@@ -136,6 +187,7 @@ const Login = () => {
 
             <div className="flex w-full">
               <button
+              onClick={handleLogin}
                 type="submit"
                 className="
                   flex
@@ -173,7 +225,9 @@ const Login = () => {
                 </span>
               </button>
             </div>
+
           </form>
+
         </div>
       </div>
       <div className="flex justify-center items-center mt-6">
@@ -197,6 +251,7 @@ const Login = () => {
           >
         </Link>
       </div>
+
     </div>
   )
 }
