@@ -13,17 +13,22 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    if(localStorage.getItem('userlogedin')){
-      navigate(`/music/${artist}`);
-    }else{
+    if(artist === ""){
       setisErr(true);
-      setErr('Please Login First');
+      setErr('invalid Input');
+    }else{
+      if(localStorage.getItem('userlogedin')){
+        navigate(`/music/${artist}`);
+      }else{
+        setisErr(true);
+        setErr('Please Login First');
+      }
     }
   }
   
   return (
     <>
-      <Nav logedIn={logedIn} setLogedIn={setLogedIn} afterLogout={afterLogout}/>
+      <Nav logedIn={logedIn} setLogedIn={setLogedIn} afterLogout={afterLogout} user={user}/>
       <div className="lg:container lg:mx-auto">
       <div
           className="container max-w-lg px-4 py-32 mx-auto text-left md:max-w-none md:text-center"

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-const Nav = ({logedIn,setLogedIn}) => {
+const Nav = ({logedIn,setLogedIn, user}) => {
     const navigate= useNavigate()
   const afterLogout=()=>{
     navigate("/");
@@ -19,9 +19,11 @@ const Nav = ({logedIn,setLogedIn}) => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
             </label>
             <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a href='/hello'>Homepage</a></li>
-                <li><a href='/hello'>Portfolio</a></li>
-                <li onClick={afterLogout}><a href="">Logout</a> </li>
+            { !localStorage.getItem('userlogedin')?
+            <li><a href="">Welcome to my Application!</a> </li>
+            :
+            <li onClick={afterLogout}><a href="">Logout</a> </li>
+            }
             </ul>
             </div>
         </div>
