@@ -18,7 +18,8 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
       setErr('invalid Input');
     }else{
       if(localStorage.getItem('userlogedin')){
-        navigate(`/music/${artist}`);
+        const result = artist.trim().replace(/[\s;]+/g, "-")
+        navigate(`/music/${result}`);
       }else{
         setisErr(true);
         setErr('Please Login First');

@@ -18,7 +18,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
   const [dataFetched, setDataFetched] = useState(false);
 
 
-  const {artist} = useParams();
+  const {result} = useParams();
   const options = {
     method: 'GET',
     headers: {'X-RapidAPI-Key': '6271353133msh9b39ef383f0d04ep1e6e5ejsn554197c5fc37','X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'}
@@ -38,7 +38,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
   }
   
   function getMusic(){
-    fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${artist}`, options)
+    fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${result}`, options)
     .then(response => response.json())
     .then(response =>{
       if(response.data){
@@ -51,7 +51,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
     .catch(err => console.error(err));
   }
   function getArtist(){
-    fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${artist}`, options)
+    fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${result}`, options)
     .then(response => response.json())
     .then(response => {
       if(response){
@@ -66,7 +66,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
   useEffect(() => {
     getMusic()
     getArtist()
-  }, [artist])
+  }, [result])
  
   
     const handleSelect = (index) =>{
