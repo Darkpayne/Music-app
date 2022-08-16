@@ -10,7 +10,6 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
   const [err, setErr] = useState('');
   const [isErr, setisErr] = useState(false);
 
-
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(artist === ""){
