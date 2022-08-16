@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const FetchError = () => {
-    window.location.reload(true);
+    // window.location.reload(true);
+    window.location.reload()
+    // history.go(0);
   return (
     <div>
         
