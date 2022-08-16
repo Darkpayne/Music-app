@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import {  useNavigate } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 
 const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
 
@@ -9,6 +10,7 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
   const [artist, setArtist] = useState('');
   const [err, setErr] = useState('');
   const [isErr, setisErr] = useState(false);
+  const [isLoading, setisLoading] = useState(false)
 
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -17,6 +19,7 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
       setErr('invalid Input');
     }else{
       if(localStorage.getItem('userlogedin')){
+        setisLoading(true)
         const result = artist.trim().replace(/[\s;]+/g, "-")
         console.log(result);
         navigate(`/music/${result}`);
@@ -28,7 +31,14 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
   }
   
   return (
-    <>
+      <article>
+{isLoading
+	?
+	<div className='h-screen flex items-center justify-center '><ReactLoading type={"bars"} color={"blue"} height={'8%'} width={'8%'} /></div>
+	:
+
+    <section>
+      
       <Nav logedIn={logedIn} setLogedIn={setLogedIn} afterLogout={afterLogout} user={user}/>
       <div className="lg:container lg:mx-auto">
       <div
@@ -80,7 +90,10 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
 
 
       <Footer/>
-    </>
+        
+    </section>
+}
+    </article>
   )
 }
 

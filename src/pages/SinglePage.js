@@ -4,6 +4,8 @@ import Controls from '../components/Controls';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
 import FetchError from './FetchError';
+import ReactLoading from 'react-loading';
+import axios from 'axios';
 
 const SinglePage = ({logedIn,afterLogout}) => {
 
@@ -12,6 +14,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
   const [currentSong, setCurrentSong] = useState({});
   const [indexValue, setIndexValue] = useState()
   const [active, setActive] = useState(false)
+  const [isLoading, setisLoading] = useState(true)
   
 
   const [artistFetch, setaAtistFetch] = useState(false);
@@ -19,7 +22,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
 
 
   const { result } = useParams();
-  console.log(result);
+
   const options = {
     method: 'GET',
     headers: {'X-RapidAPI-Key': '6271353133msh9b39ef383f0d04ep1e6e5ejsn554197c5fc37','X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'}
@@ -38,13 +41,15 @@ const SinglePage = ({logedIn,afterLogout}) => {
       audio.current.paused ? audio.current.play() : audio.current.pause();
   }
   
-  function getMusic(){
+  const getMusic = async () =>{
     fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${result}`, options)
     .then(response => response.json())
     .then(response =>{
-      if(response.data){
+      if(response.data.length > 10){
+        console.log(response.data.length > 10);
         setDataFetched(true)
         setMusic(response.data)
+        setisLoading(false);
       }else{
         console.log('there is a song error');
       }
@@ -55,19 +60,26 @@ const SinglePage = ({logedIn,afterLogout}) => {
     fetch(`https://deezerdevs-deezer.p.rapidapi.com/artist/${result}`, options)
     .then(response => response.json())
     .then(response => {
-      if(response){
+      if(response.radio){
+        console.log(response);
         setaAtistFetch(true);
         setArtistInfo(response);
+        setisLoading(false);
       }else{
         console.log('there is an artist error');
+        
       }
     })
     .catch(err => console.error(err));
   }
   useEffect(() => {
-    getMusic()
-    getArtist()
+    setTimeout(()=>{
+      getMusic()
+      getArtist()
+    }, 4000)
   }, [result])
+
+
  
   
     const handleSelect = (index) =>{
@@ -80,9 +92,16 @@ const SinglePage = ({logedIn,afterLogout}) => {
 
 
   return (
-    <>
-    { artistFetch && dataFetched
-    ?
+    <article>
+{isLoading
+	?
+	<div className='h-screen flex items-center justify-center '><ReactLoading type={"bars"} color={"blue"} height={'6%'} width={'6%'} /></div>
+	:
+ 
+
+    <section>
+    {/* { artistFetch && dataFetched */}
+    {/* ? */}
     <div>
         <Nav logedIn={logedIn} afterLogout={afterLogout}/>
 
@@ -168,10 +187,12 @@ const SinglePage = ({logedIn,afterLogout}) => {
         {active &&  <Controls indexValue={indexValue} currentSong={currentSong} setCurrentSong={setCurrentSong} music={music} setIndexValue={setIndexValue} handleSelect={handleSelect} setActive={setActive} isPlaying={isPlaying} setisPlaying={setisPlaying} togglePlaying={togglePlaying} audio={audio} toggleAudio={toggleAudio} dataFetched={dataFetched}/>}
         <Footer/>
     </div>
-    :
-    <FetchError/>
-    }
-    </>
+    {/* : */}
+    {/* <FetchError/> */}
+    {/* } */}
+    </section>
+}
+    </article>
   )
 }
 
