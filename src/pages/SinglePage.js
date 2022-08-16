@@ -45,12 +45,12 @@ const SinglePage = ({logedIn,afterLogout}) => {
     fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${result}`, options)
     .then(response => response.json())
     .then(response =>{
-      if(response.data.length > 10){
-        console.log(response.data.length > 10);
+      if(response.data){
         setDataFetched(true)
         setMusic(response.data)
-        setisLoading(false);
+        setisLoading(false)
       }else{
+        setDataFetched(false)
         console.log('there is a song error');
       }
     })
@@ -61,11 +61,10 @@ const SinglePage = ({logedIn,afterLogout}) => {
     .then(response => response.json())
     .then(response => {
       if(response.radio){
-        console.log(response);
         setaAtistFetch(true);
         setArtistInfo(response);
-        setisLoading(false);
       }else{
+        setaAtistFetch(false);
         console.log('there is an artist error');
         
       }
@@ -76,11 +75,9 @@ const SinglePage = ({logedIn,afterLogout}) => {
     setTimeout(()=>{
       getMusic()
       getArtist()
-    }, 4000)
+    }, 2000)
   }, [result])
 
-
- 
   
     const handleSelect = (index) =>{
     setIndexValue(index);
