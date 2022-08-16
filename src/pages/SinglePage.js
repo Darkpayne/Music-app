@@ -51,6 +51,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
         setisLoading(false)
       }else{
         setDataFetched(false)
+        setisLoading(false)
         console.log('there is a song error');
       }
     })
@@ -65,6 +66,7 @@ const SinglePage = ({logedIn,afterLogout}) => {
         setArtistInfo(response);
       }else{
         setaAtistFetch(false);
+        setisLoading(false)
         console.log('there is an artist error');
         
       }
@@ -97,8 +99,8 @@ const SinglePage = ({logedIn,afterLogout}) => {
  
 
     <section>
-    {/* { artistFetch && dataFetched */}
-    {/* ? */}
+    { artistFetch && dataFetched
+     ? 
     <div>
         <Nav logedIn={logedIn} afterLogout={afterLogout}/>
 
@@ -184,9 +186,9 @@ const SinglePage = ({logedIn,afterLogout}) => {
         {active &&  <Controls indexValue={indexValue} currentSong={currentSong} setCurrentSong={setCurrentSong} music={music} setIndexValue={setIndexValue} handleSelect={handleSelect} setActive={setActive} isPlaying={isPlaying} setisPlaying={setisPlaying} togglePlaying={togglePlaying} audio={audio} toggleAudio={toggleAudio} dataFetched={dataFetched}/>}
         <Footer/>
     </div>
-    {/* : */}
-    {/* <FetchError/> */}
-    {/* } */}
+    : 
+     <FetchError/>
+    } 
     </section>
 }
     </article>
