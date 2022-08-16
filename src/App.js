@@ -44,7 +44,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={ <Home logedIn={logedIn} setLogedIn={setLogedIn}  afterLogout={afterLogout}/>} />
-          <Route path="/music/:artist" element={logedIn && <SinglePage logedIn={logedIn} />} />
+          <Route path="/music/:result" element={logedIn && <SinglePage logedIn={logedIn} />} />
           <Route path="/login" element={ <Login afterLogin={afterLogin}/>} />
           <Route path="/signup" element={ <Signup afterSignup={afterSignup}/> } />
           <Route path="*" element={<ErrorPage />} />

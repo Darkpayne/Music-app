@@ -18,7 +18,8 @@ const SinglePage = ({logedIn,afterLogout}) => {
   const [dataFetched, setDataFetched] = useState(false);
 
 
-  const {result} = useParams();
+  const { result } = useParams();
+  console.log(result);
   const options = {
     method: 'GET',
     headers: {'X-RapidAPI-Key': '6271353133msh9b39ef383f0d04ep1e6e5ejsn554197c5fc37','X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'}

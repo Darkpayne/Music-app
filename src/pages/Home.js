@@ -18,6 +18,7 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
     }else{
       if(localStorage.getItem('userlogedin')){
         const result = artist.trim().replace(/[\s;]+/g, "-")
+        console.log(result);
         navigate(`/music/${result}`);
       }else{
         setisErr(true);
