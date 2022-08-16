@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const FetchError = () => {
     const reload = () =>{
-        window.location.reload()
-        // window.history.go(1);
+        // window.location.reload()
+        window.history.back()
     }
   return (
     <div>
