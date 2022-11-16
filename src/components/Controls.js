@@ -80,7 +80,7 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
                 </div>
 
                 {/* controls  */}
-                <div className="md:text-3xl text-xl mx-3 md:mx-9">
+                <div className="md:text-3xl text-xl mx-3 md:mx-9 shrink-0">
                     <span onClick={previousSong} className='cursor-pointer md:mx-3 mx-1'> 
                     <ion-icon name="play-skip-back"></ion-icon>
                     </span>

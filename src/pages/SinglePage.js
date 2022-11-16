@@ -135,8 +135,8 @@ const SinglePage = ({logedIn,afterLogout}) => {
               <div key={index} className={`cursor-pointer flex gap-10 items-center my-5 shadow-lg p-3 ${indexValue === index?'bg-gray-200':''}`} 
               onClick={()=>{handleSelect(index)}}>
 
-                <div  className="flex items-center justify-between relative ">
-                  <img className='w-16 rounded-full opacity-75' src={song.album.cover} alt="" />
+                <div  className="flex items-center  relative shrink-0">
+                  <img className='grow w-16 rounded-full opacity-75 ' src={song.album.cover} alt="" />
                   {indexValue === index 
                   &&
                   <div className="absolute text-white text-center flex items-center justify-center right-5 text-3xl z-10">
@@ -157,8 +157,8 @@ const SinglePage = ({logedIn,afterLogout}) => {
 
                 <div className="grow flex justify-between items-center">
                   <div className=" ">
-                      <h1>{title}</h1>
-                      <h1 className='font-thin text-gray-400'>{song.album.title}</h1>
+                      <h1 className='text-sm  '>{title}</h1>
+                      <h1 className='font-thin   text-gray-400'>{song.album.title}</h1>
                   </div>
                   {indexValue === index 
                   &&
@@ -166,9 +166,9 @@ const SinglePage = ({logedIn,afterLogout}) => {
                     <p className='text-sm text-gray-400 italic'>now playing</p>
                   </div>
                   }
-                  <div className="text-right text-xl font-thin flex">
-                    <span className='text-red-500 mr-5'><ion-icon name="heart-outline"></ion-icon></span>
-                    <span><ion-icon name="ellipsis-vertical-outline"></ion-icon></span>
+                  <div className="text-right text-lg font-thin flex">
+                    <span className='text-red-500 mr-2 text-sm md:text-base'><ion-icon name="heart-outline"></ion-icon></span>
+                    <span className='text-sm md:text-base'><ion-icon name="ellipsis-vertical-outline"></ion-icon></span>
                   </div>
                 </div>
               </div>
