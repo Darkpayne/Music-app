@@ -71,17 +71,17 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
            src={currentSong.preview}
         />
             <div className="">
-                <img src={currentSong.album.cover} alt="" />
+                <img src={currentSong.album.cover} alt="" className='h-full' />
             </div>
             <div className="text-white flex mx-5 justify-between w-[100%] items-center">
                 <div className="">
-                    <p className='text-lg'>{currentSong.title}</p>
-                    <p className='text-sm'>{currentSong.album.title}</p>
+                    <p className='md:text-lg text-sm'>{currentSong.title}</p>
+                    <p className='md:text-sm text-xs'>{currentSong.album.title}</p>
                 </div>
 
                 {/* controls  */}
-                <div className="text-3xl mx-3 md:mx-9">
-                    <span onClick={previousSong} className='cursor-pointer mx-3'> 
+                <div className="md:text-3xl text-xl mx-3 md:mx-9">
+                    <span onClick={previousSong} className='cursor-pointer md:mx-3 mx-1'> 
                     <ion-icon name="play-skip-back"></ion-icon>
                     </span>
 
@@ -89,16 +89,16 @@ const Controls = ({currentSong,setCurrentSong, music, indexValue,setIndexValue,s
                         toggleAudio()
                         togglePlaying()
                     }}
-                    className='cursor-pointer mx-3'> 
+                    className='cursor-pointer md:mx-3 mx-1'> 
                     <ion-icon name={isPlaying?"play":"pause"}></ion-icon>
                     </span>
                     
-                    <span onClick={nextSong} className='cursor-pointer mx-3'> 
+                    <span onClick={nextSong} className='cursor-pointer md:mx-3 mx-1'> 
                     <ion-icon name="play-skip-forward"></ion-icon>
                     </span>
                 </div>
 
-                <div className="text-3xl mx-3 md:mx-9">
+                <div className="text-3xl mx-3 md:mx-9 hidden md:inline">
                 <span onClick={shuffleSong} className='cursor-pointer mx-3'> 
                 <ion-icon name="shuffle-outline"></ion-icon>
                     </span>
