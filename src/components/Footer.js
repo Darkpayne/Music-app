@@ -118,7 +118,7 @@ const Footer = () => {
 //   </div>
 // </footer>
 //     </div>
-<div className="bg-black flex flex-col items-center justify-center absolute w-full bottom-0 text-white h-28">
+<div className="bg-black flex flex-col items-center justify-center absolute w-full text-white h-28">
 <div className="">
     <ul className="flex md:flex-row space-x-5 w-full items-center justify-center">
     <p className=" tracking-tight block cursor-pointer hover:text-red-400 transition-colors duration-300 text-2xl">
