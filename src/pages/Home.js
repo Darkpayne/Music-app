@@ -40,7 +40,7 @@ const Home = ({user,logedIn,afterLogout,setLogedIn}) => {
     <section>
       
       <Nav logedIn={logedIn} setLogedIn={setLogedIn} afterLogout={afterLogout} user={user}/>
-      <div className="lg:container lg:mx-auto">
+      <div className="lg:container lg:mx-auto min-h-screen">
       <div
           className="container max-w-lg px-4 py-32 mx-auto text-left md:max-w-none md:text-center"
         >

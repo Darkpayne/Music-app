@@ -20,7 +20,14 @@ const Nav = ({logedIn,setLogedIn, user}) => {
             </label>
             <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             { !localStorage.getItem('userlogedin')?
-            <li><a href="">Welcome to my Application!</a> </li>
+            <div className="navbar-end">
+                <Link to="/login" className="btn btn-ghost  md:flex mx-4">
+                Login
+                </Link>
+                <Link to="/signup" className="btn btn-ghost md:flex mx-4">
+                Register
+                </Link>
+        </div>
             :
             <li onClick={afterLogout}><a href="">Logout</a> </li>
             }
