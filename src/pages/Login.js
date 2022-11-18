@@ -19,9 +19,8 @@ const Login = ({afterLogin}) => {
 		if(auth===null){
 			alert('no user found')
 		}
-	
-
 			const same = auth.filter(d=> d.username == username)
+      
 			if(same.length !== 0){
        if (same[0].password===password){
         localStorage.setItem('userlogedin', username)
@@ -42,9 +41,7 @@ const Login = ({afterLogin}) => {
 
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center bg-gray-100"
-    >
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div
         className="
           flex flex-col
@@ -69,7 +66,7 @@ const Login = ({afterLogin}) => {
         {isError &&
 	  	<div  className="alert p-2 alert-error shadow mt-3">
 		<div onClick={()=> setisError(false)} className='cursor-pointer'>
-			<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+			<svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 			<span>Error! {errMessage}</span>
 			</div>
 		</div>
